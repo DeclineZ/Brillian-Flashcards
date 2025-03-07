@@ -12,7 +12,7 @@ input:focus, select:focus, textarea:focus, button:focus {
 /* Styling for the drop area */
 .drop {
   width: 90%;
-  height: 400px;
+  height: 380px;
   border: 3px dashed #DADFE3;
   border-radius: 15px;
   overflow: hidden;

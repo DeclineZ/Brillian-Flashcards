@@ -74,6 +74,11 @@ body {
   }
 }
 
+.smalltext {
+  opacity: 0; /* Start with opacity 0 */
+  animation: fadeInTitle 1.5s ease-in-out forwards;
+}
+
 /* Container and Row animations */
 .container {
   opacity: 0;
@@ -145,12 +150,45 @@ button:active {
 
 /* File Upload Section Animation */
 .dashed_upload {
+  width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
   opacity: 0;
   animation: fadeInUpload 1.5s ease-in-out forwards;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.drop {
+  height: 200px;
+  width: 90%;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.dragdrop {
+  height: 250px;
+  margin-bottom: 50px;
+  min-width: 431px;
+}
+
+@media (min-width: 768px) {
+  .dashed_upload {
+      height: 380px; /* Restore original height for larger screens */
+  }
+  .drop {
+    height: 360px;
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .dragdrop {
+    height: 430px;
+  }
 }
 
 /* Fade-in animation for the file upload section */
@@ -180,5 +218,15 @@ button:active {
 @keyframes rotateSpinner {
   100% {
       transform: rotate(360deg);
+  }
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+  h1 {
+      font-size: 3rem; /* Larger text on bigger screens */
   }
 }

@@ -19,7 +19,7 @@
     <div class="flashcard-container">
         <div id="remainingCount" class="text-center my-3" style="color:white;">Remaining Flashcards: X</div>
         <h1 class="text-center glowww">Asia Minor</h1>
-        <div style="display:flex; align-items:center;">
+        <div class="card-contain" style="display:flex; align-items:center;">
             <img src="assets/img/icons/left-arrow.png" alt="" style="height:60px" onClick="showBeforeCard()">
             <div id="flashcard" class="flashcard"></div>
             <img src="assets/img/icons/right-arrow.png" alt="" style="height:60px" onClick="showNextCard()">
@@ -27,7 +27,6 @@
     </div>
 
     <script>
-        // Sample flashcards data (easily extendable by adding more objects)
         let flashcards = [
         {
             id: 1,  

@@ -60,12 +60,14 @@ let flashcards = [
   });
   document.querySelector('.drop').addEventListener('drop', function(e) {
     e.preventDefault();
-    replaceWithExampleFile();
+    replaceWithExampleFile1();
+    replaceWithExampleFile2();
   });
   
   // Handle file selection (both click and drag)
   document.getElementById('files').addEventListener('change', function(event) {
-    replaceWithExampleFile();
+    replaceWithExampleFile1();
+    replaceWithExampleFile2();
   });
   
 
@@ -73,14 +75,13 @@ let flashcards = [
 let uploadedFiles = [];
 
   // Function to replace the uploaded file with the example file
-  function replaceWithExampleFile() {
+  function replaceWithExampleFile1() {
 
     uploadedFiles.push({
         name: "5-อารยธรรมเอเชียไมเนอร์.pdf.pdf", 
         type: "application/pdf", 
         icon: "assets/img/pdf.png"
     });
-
       // Clear the file list
     const list = document.getElementById('list');
     list.innerHTML = '';
@@ -93,10 +94,27 @@ let uploadedFiles = [];
         listItem.innerHTML = `<img src="${file.icon}" alt="PDF Icon" /><span>${file.name} (${file.type})</span>`;})
   
     // Append the file item to the list
-    list.appendChild(listItem);
+    list.appendChild(listItem);       
+  }
 
-    
-    
+  let uploadedFiles1 = [];
+  function replaceWithExampleFile2() {
+
+    uploadedFiles1.push({
+        name: "อารยธรรมเอเชียไมเนอร์.png", 
+        type: "image/png", 
+        icon: "assets/img/png.png"
+    });
+  
+    // Create a new file item with the example PDF file
+    const listItem = document.createElement('div');
+    listItem.classList.add('file-item');
+  
+    uploadedFiles1.forEach(file => {
+        listItem.innerHTML = `<img src="${file.icon}" alt="PDF Icon" /><span>${file.name} (${file.type})</span>`;})
+  
+    // Append the file item to the list
+    list.appendChild(listItem);       
   }
   
 
@@ -107,65 +125,41 @@ document.getElementById("create-flashcards").addEventListener("click", function(
             alert('Only the creation of 1 set of flashcards is allowed for this demo')
         } else {
             if (uploadedFiles.length >= 1) {
-             // Populate the file names in the modal
-            const fileNamesList = document.getElementById("fileNamesList");
-            fileNamesList.innerHTML = ""; // Clear the previous file list
-            uploadedFiles.forEach(file => {
-            const listItem = document.createElement("li");
-            listItem.textContent = file.name; // Display the name of each uploaded file
-            fileNamesList.appendChild(listItem);
-            });
-        
-            // Show the modal
             const flashcardModal = new bootstrap.Modal(document.getElementById('flashcardModal'));
             flashcardModal.show();
             count ++;
-        }}
+
+            maxpage = Math.floor(Math.random() * (25 - 5) + 1 ) + 5;
+  
+            // Show the loading spinner and hide the form
+            document.getElementById("loadingSpinner").style.display = "block";
+          
+            // Simulate a 3-second delay (like an AI processing/loading delay)
+            setTimeout(function() {
+              // Hide the loading spinner
+              document.getElementById("loadingSpinner").style.display = "none";
+              
+              // Add an example flashcard set to the flashcards array
+              flashcards.push({
+                id: flashcards.length + 1, 
+                name: `Asia Minor`,
+                flashcards: maxpage,
+              });
+          
+              console.log("Flashcards:", flashcards); // Show the updated array in the console
+              renderFlashcards();
+          
+              // Close the modal
+              const flashcardModal = bootstrap.Modal.getInstance(document.getElementById('flashcardModal'));
+              flashcardModal.hide();
         
+                    // Clear the file list
+              const list = document.getElementById('list');
+              list.innerHTML = '';
+          
+              // Enable the button again
+              document.getElementById("submitFlashcards").disabled = false;
+            }, 3000); // 3-second delay
+        }}    
   });
   
-  // Handle the "Generate Flashcards" button click
-  document.getElementById("submitFlashcards").addEventListener("click", function() {
-    const minFlashcards = document.getElementById("minFlashcards").value;
-    const maxFlashcards = document.getElementById("maxFlashcards").value;
-    const sideNotes = document.getElementById("sideNotes").value;
-    maxpage = Math.floor(Math.random() * (Math.floor(maxFlashcards) - Math.floor(minFlashcards) + 1) ) + Math.floor(minFlashcards);
-  
-    // Show the loading spinner and hide the form
-    document.getElementById("loadingSpinner").style.display = "block";
-    document.getElementById("submitFlashcards").disabled = true;
-  
-    // Simulate a 3-second delay (like an AI processing/loading delay)
-    setTimeout(function() {
-      // Hide the loading spinner
-      document.getElementById("loadingSpinner").style.display = "none";
-      
-      // Add an example flashcard set to the flashcards array
-      flashcards.push({
-        id: flashcards.length + 1, 
-        name: `Asia Minor`,
-        flashcards: maxpage,
-      });
-  
-      console.log("Flashcards:", flashcards); // Show the updated array in the console
-      renderFlashcards();
-  
-      // Close the modal
-      const flashcardModal = bootstrap.Modal.getInstance(document.getElementById('flashcardModal'));
-      flashcardModal.hide();
-
-            // Clear the file list
-      const list = document.getElementById('list');
-      list.innerHTML = '';
-  
-      // Enable the button again
-      document.getElementById("submitFlashcards").disabled = false;
-    }, 3000); // 3-second delay
-  });
-  
-  // Typewriter
-
-  window.onload = () => {
-    const typewriterText = document.getElementById('typewriter-text');
-    typewriterText.style.width = '100%'; // trigger the typing animation
-};
