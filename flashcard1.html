@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Flashcards</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/flashcardstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+</head>
+<body style="background: rgb(33,37,41);">
+    <nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav" style="background: rgb(45,44,56);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><span ><img src="assets/img/logo/logowideLW.png" style="height:50px;"></span><span></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto"></ul><a class="btn btn-primary shadow" role="button" href="" style="border-radius: 32px;">Sign up</a>
+            </div>
+        </div>
+    </nav>
+    <div class="flashcard-container">
+        <div id="remainingCount" class="text-center my-3" style="color:white;">Remaining Flashcards: X</div>
+        <h1 class="text-center glowww">Respiratory System</h1>
+        <div style="display:flex; align-items:center;">
+            <img class="arrow-button" src="assets/img/icons/left-arrow.png" alt="" style="height:60px" onClick="showBeforeCard()">
+            <div id="flashcard" class="flashcard"></div>
+            <img class="arrow-button" src="assets/img/icons/right-arrow.png" alt="" style="height:60px" onClick="showNextCard()">
+        </div>
+    </div>
+
+    <script>
+        // Sample flashcards data (easily extendable by adding more objects)
+        let flashcards = [
+        {
+            id: 1, 
+            front: "การหายใจคืออะไร?", 
+            back: "การหายใจคือกระบวนการแลกเปลี่ยนแก๊สออกซิเจนและคาร์บอนไดออกไซด์ระหว่างสิ่งมีชีวิตกับสิ่งแวดล้อม", 
+            aiExplanation: "การหายใจเป็นกระบวนการที่สำคัญต่อสิ่งมีชีวิตทุกชนิดเพื่อให้เซลล์ได้รับออกซิเจนสำหรับการเผาผลาญพลังงานและขับของเสียที่เป็นก๊าซ เช่น คาร์บอนไดออกไซด์ออกจากร่างกาย"
+        },
+        {
+            id: 2, 
+            front: "ทำไมร่างกายต้องการออกซิเจน?", 
+            back: "ออกซิเจนจำเป็นสำหรับกระบวนการสลายสารอาหารเพื่อให้พลังงานแก่เซลล์", 
+            aiExplanation: "ร่างกายใช้ O₂ ในการสันดาปสารอาหาร เช่น คาร์โบไฮเดรตและไขมัน เพื่อสร้าง ATP ซึ่งเป็นแหล่งพลังงานหลักของเซลล์ หากไม่มีออกซิเจน กระบวนการนี้จะไม่สามารถดำเนินไปได้"
+        },
+        {
+            id: 3, 
+            front: "แก๊สที่เกี่ยวข้องกับการหายใจมีอะไรบ้าง?", 
+            back: "ออกซิเจน (O₂), คาร์บอนไดออกไซด์ (CO₂), ไนโตรเจน (N₂)", 
+            aiExplanation: "ออกซิเจนใช้ในการเผาผลาญพลังงาน ขณะที่คาร์บอนไดออกไซด์เป็นของเสียที่ต้องถูกขับออก ไนโตรเจนเป็นแก๊สหลักในอากาศแต่ไม่ได้มีบทบาทในการหายใจ"
+        },
+        {
+            id: 4, 
+            front: "อัตราส่วนของ O₂ และ CO₂ ในลมหายใจเข้าและออกต่างกันอย่างไร?", 
+            back: "O₂ ในลมหายใจเข้า ≈ 20.95%, O₂ ในลมหายใจออก ≈ 16.02%; CO₂ ในลมหายใจเข้า ≈ 0.04%, CO₂ ในลมหายใจออก ≈ 4%", 
+            aiExplanation: "ปอดดูดซับ O₂ จากอากาศและขับ CO₂ ออกมาหลังจากที่เซลล์ใช้พลังงานจากกระบวนการเผาผลาญ"
+        },
+        {
+            id: 5, 
+            front: "เมแทบอลิซึม (Metabolism) คืออะไร?", 
+            back: "กระบวนการทางชีวเคมีที่เกิดขึ้นในร่างกาย มี 2 ประเภทคือ Anabolism (การสังเคราะห์) และ Catabolism (การสลาย)", 
+            aiExplanation: "เมแทบอลิซึมเป็นกระบวนการที่เกี่ยวข้องกับการสร้างและการสลายสารเพื่อให้พลังงานและรักษาสมดุลของร่างกาย"
+        },
+        {
+            id: 6, 
+            front: "อวัยวะที่ใช้แลกเปลี่ยนแก๊สในสัตว์มีกี่ประเภท?", 
+            back: "มี 4 ประเภท ได้แก่ ผิวหนัง, เหงือก, ท่อลม, ปอด", 
+            aiExplanation: "สัตว์ชนิดต่างๆ มีระบบหายใจที่แตกต่างกันขึ้นอยู่กับสภาพแวดล้อม เช่น สัตว์น้ำใช้เหงือก แมลงใช้ท่อลม และสัตว์บกใช้ปอด"
+        },
+        {
+            id: 7, 
+            front: "ปลาหายใจโดยใช้อะไร?", 
+            back: "ปลาหายใจโดยใช้เหงือกที่มีเส้นเลือดฝอยจำนวนมากช่วยในการแลกเปลี่ยนแก๊ส", 
+            aiExplanation: "น้ำที่มีออกซิเจนละลายจะไหลผ่านเหงือก O₂ จะถูกดูดเข้าสู่กระแสเลือดและ CO₂ จะถูกขับออกสู่สิ่งแวดล้อม"
+        },
+        {
+            id: 8, 
+            front: "แมลงมีระบบหายใจแบบใด?", 
+            back: "แมลงใช้ระบบท่อลม (Tracheal system) ซึ่งมีรูเปิดที่เรียกว่า spiracle", 
+            aiExplanation: "อากาศจะเข้าสู่ท่อลมและกระจายไปทั่วร่างกายโดยไม่ต้องอาศัยระบบไหลเวียนโลหิต"
+        },
+        {
+            id: 9, 
+            front: "มนุษย์มีระบบทางเดินหายใจอะไรบ้าง?", 
+            back: "ประกอบด้วย จมูก, คอหอย, กล่องเสียง, หลอดลม, ปอด และถุงลม", 
+            aiExplanation: "อากาศผ่านเข้าสู่ปอดผ่านทางเดินหายใจ และมีการแลกเปลี่ยนแก๊สที่ถุงลมปอด"
+        },
+        {
+            id: 10, 
+            front: "การหายใจของมนุษย์มีกี่ขั้นตอน?", 
+            back: "มี 2 ขั้นตอน คือ การหายใจภายนอก และการหายใจระดับเซลล์", 
+            aiExplanation: "การหายใจภายนอกคือการนำอากาศเข้าสู่ปอด ส่วนการหายใจระดับเซลล์คือการใช้ O₂ ในการสลายสารอาหารเพื่อสร้างพลังงาน"
+        },
+        {
+            id: 11, 
+            front: "ถุงลมปอดมีบทบาทอย่างไร?", 
+            back: "เป็นจุดที่มีการแลกเปลี่ยนแก๊สระหว่างปอดกับเส้นเลือดฝอย", 
+            aiExplanation: "ถุงลมมีพื้นที่ผิวขนาดใหญ่ช่วยเพิ่มประสิทธิภาพในการดูดซับ O₂ และกำจัด CO₂"
+        },
+        {
+            id: 12, 
+            front: "ฮีโมโกลบินทำหน้าที่อะไร?", 
+            back: "ทำหน้าที่จับและลำเลียงออกซิเจนในเลือด", 
+            aiExplanation: "ฮีโมโกลบินในเม็ดเลือดแดงช่วยจับ O₂ และส่งไปยังเซลล์เพื่อใช้พลังงาน"
+        },
+        {
+            id: 13, 
+            front: "การแลกเปลี่ยนแก๊สในปอดเกิดขึ้นได้อย่างไร?", 
+            back: "เกิดจากการแพร่ (Diffusion) ตามความเข้มข้นของแก๊ส", 
+            aiExplanation: "O₂ จากอากาศเข้าสู่เลือดที่มี O₂ ต่ำ ขณะที่ CO₂ ในเลือดแพร่ออกไปยังอากาศที่มี CO₂ ต่ำ"
+        },
+        {
+            id: 14, 
+            front: "กลไกการควบคุมการหายใจเป็นแบบใด?", 
+            back: "มีทั้งแบบอัตโนมัติและแบบควบคุมได้", 
+            aiExplanation: "สมองส่วนเมดัลลาออบลองกาตาและพอนส์ควบคุมการหายใจอัตโนมัติ ส่วนซีรีบรัลคอร์เทกซ์สามารถควบคุมการหายใจเองได้"
+        },
+        {
+            id: 15, 
+            front: "โรคเกี่ยวกับระบบหายใจที่พบบ่อยมีอะไรบ้าง?", 
+            back: "เช่น ถุงลมโป่งพอง, ปอดบวม, มะเร็งปอด", 
+            aiExplanation: "โรคเหล่านี้มักเกี่ยวข้องกับการอักเสบหรือความเสียหายของปอด ทำให้การแลกเปลี่ยนแก๊สบกพร่อง"
+        },
+        {
+            id: 16, 
+            front: "อวัยวะสำคัญที่ช่วยให้มนุษย์หายใจคืออะไร?", 
+            back: "ปอดและกล้ามเนื้อกะบังลม", 
+            aiExplanation: "กะบังลมช่วยในการขยายตัวและหดตัวของปอดเพื่อดึงอากาศเข้าและออก"
+        },
+        {
+            id: 17, 
+            front: "ถุงลม (alveoli) มีจำนวนประมาณเท่าใดในปอดของมนุษย์?", 
+            back: "มีประมาณ 300 ล้านถุงในปอดทั้งสองข้าง", 
+            aiExplanation: "ถุงลมจำนวนมากช่วยเพิ่มพื้นที่ผิวสำหรับการแลกเปลี่ยนแก๊ส ทำให้ร่างกายสามารถรับออกซิเจนได้มากขึ้นและขับคาร์บอนไดออกไซด์ออกอย่างมีประสิทธิภาพ"
+        },
+        {
+            id: 18, 
+            front: "ทำไมกบสามารถหายใจทางผิวหนังได้?", 
+            back: "เพราะผิวหนังของกบมีเส้นเลือดฝอยจำนวนมากและต้องเปียกชื้นอยู่เสมอเพื่อให้แก๊สสามารถแพร่ผ่านได้", 
+            aiExplanation: "กบสามารถหายใจทั้งทางปอดและผิวหนัง โดยเฉพาะในสภาวะที่ต้องอยู่ในน้ำ ผิวหนังที่บางและชื้นช่วยให้ O₂ แพร่เข้าสู่เส้นเลือด และ CO₂ ออกสู่สิ่งแวดล้อมได้"
+        },
+        {
+            id: 19, 
+            front: "นกมีโครงสร้างพิเศษใดที่ช่วยในการหายใจ?", 
+            back: "นกมีถุงลม 9 อันที่ช่วยให้อากาศไหลผ่านปอดได้อย่างต่อเนื่อง", 
+            aiExplanation: "ระบบถุงลมของนกช่วยให้การหายใจมีประสิทธิภาพสูงขึ้น ทำให้ได้รับออกซิเจนมากขึ้นในขณะที่บิน ซึ่งช่วยสนับสนุนกระบวนการเผาผลาญที่สูงของนก"
+        },
+        {
+            id: 20, 
+            front: "อวัยวะใดในสมองควบคุมการหายใจ?", 
+            back: "เมดัลลาออบลองกาตา (Medulla Oblongata)", 
+            aiExplanation: "สมองส่วนเมดัลลาออบลองกาตาควบคุมจังหวะการหายใจโดยอัตโนมัติ ตรวจจับระดับ CO₂ และ pH ของเลือดเพื่อปรับอัตราการหายใจให้เหมาะสม"
+        }
+    ];
+    
+    </script>
+    <script src="assets/js/flashcardscript.js"></script>
+</body>
+</html>

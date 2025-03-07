@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/Drag--Drop-Upload-Form.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+</head>
+
+<body style="background: rgb(33,37,41);">
+    <nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav" style="background: rgb(45,44,56);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><span ><img src="assets/img/logo/logowideLW.png" style="height:50px;"></span><span></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto"></ul><a class="btn btn-primary shadow" role="button" href="" style="border-radius: 32px;">Sign up</a>
+            </div>
+        </div>
+    </nav>
+    <h1 style="color: rgb(255,255,255);text-align: center;margin-top: 20px;font-size: 65px;" class="glowww">Brillian Flashcards</h1>
+    <div class="container">
+        <div class="row" style="margin-top: 36px;">
+          <div class="col-md-6" style="display: block;overflow: hidden;position: relative;height: 460px;">
+            <div class="dashed_upload" style="display:flex;flex-direction:column;justify-content:space-between;height:100%;">
+              <div class="wrapper">
+                <div class="drop">
+                  <div class="cont">
+                    <i class="fa fa-cloud-upload"></i>
+                    <div class="tit">
+                      Drag & Drop
+                    </div>
+                    <div class="desc">
+                      or 
+                    </div>
+                    <div class="browse">
+                      click here to browse
+                    </div>
+                  </div>
+                  <output id="list"></output>
+                  <input id="files" multiple name="files[]" type="file" />
+                </div>
+              </div>
+              <div>
+                <button id="create-flashcards" role="button">
+                  Create Flashcards
+              </button>
+              </div>
+            </div>
+            
+          </div>
+            <div class="col-md-6">
+              <div class="container">
+                <h1 style="color:white; text-align:center">Flashcards</h1>
+                
+                <ul id="flashcard-list">
+                  
+                </ul>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div class="modal fade" id="flashcardModal" tabindex="-1" aria-labelledby="flashcardModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="flashcardModalLabel">Flashcard Generation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- File Names Section -->
+            <div>
+              <h6>Uploaded Files:</h6>
+              <ul id="fileNamesList">
+                <!-- Dynamically filled file names will appear here -->
+              </ul>
+            </div>
+
+            <!-- Flashcard Min/Max Section -->
+            <div class="row">
+              <div class="col">
+                <label for="minFlashcards">Min Flashcards</label>
+                <select id="minFlashcards" class="form-select">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="maxFlashcards">Max Flashcards</label>
+                <select id="maxFlashcards" class="form-select">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="25">25</option>
+                  <option value="25">30</option>
+                  <option value="25">35</option>
+                  <option value="25">40</option>
+                  <option value="25">45</option>
+                  <option value="25">50</option>
+                  <option value="60" disabled>60 (premium)</option>
+                  <option value="70" disabled>70 (premium)</option>
+                  <option value="80" disabled>80 (premium)</option>
+                  <option value="90" disabled>90 (premium)</option>
+                  <option value="100" disabled>100 (premium)</option>
+              </select>
+              </div>
+            </div>
+
+            <!-- Side Notes Section -->
+            <div class="mt-3">
+              <label for="sideNotes">Side Notes for AI:</label>
+              <textarea id="sideNotes" class="form-control" rows="3"></textarea>
+            </div>
+
+            <!-- Loading Spinner (hidden by default) -->
+            <div id="loadingSpinner" class="text-center" style="display: none;">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p>Generating flashcards...</p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="submitFlashcards">Generate Flashcards</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+</body>
+
+</html>

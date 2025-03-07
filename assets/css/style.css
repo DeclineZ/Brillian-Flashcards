@@ -1,0 +1,184 @@
+.ibm-plex-sans-thai-looped-thin {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.ibm-plex-sans-thai-looped-extralight {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.ibm-plex-sans-thai-looped-light {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.ibm-plex-sans-thai-looped-regular {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.ibm-plex-sans-thai-looped-medium {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.ibm-plex-sans-thai-looped-semibold {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.ibm-plex-sans-thai-looped-bold {
+  font-family: "IBM Plex Sans Thai Looped", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "IBM Plex Sans Thai Looped";
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Glow animation for the title */
+.glowww {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(216, 216, 216, 0.6), 0 0 30px rgba(131, 131, 131, 0.4);
+  transition: text-shadow 0.3s ease-in-out;
+  opacity: 0; /* Start with opacity 0 */
+  animation: fadeInTitle 1.5s ease-in-out forwards;
+}
+
+/* Title hover effect */
+.glowww:hover {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 30px rgba(216, 216, 216, 0.6), 0 0 40px rgba(131, 131, 131, 0.4);
+}
+
+/* Fade-in animation for title */
+@keyframes fadeInTitle {
+  to {
+      opacity: 1;
+  }
+}
+
+/* Container and Row animations */
+.container {
+  opacity: 0;
+  animation: fadeInContainer 1s ease-in-out forwards;
+}
+
+@keyframes fadeInContainer {
+  to {
+      opacity: 1;
+  }
+}
+
+/* Flashcard Items */
+.flashcard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e2e2e2;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  animation: fadeInCard 1s ease-in-out forwards;
+}
+
+/* Flashcard item hover animation */
+.flashcard-item:hover {
+  transform: scale(1.005);
+  background-color: #ddd;
+}
+
+/* Fade-in effect for each flashcard item */
+@keyframes fadeInCard {
+  to {
+      opacity: 1;
+  }
+}
+
+/* Flashcard Name and Amount Styles */
+.flashcard-name,
+.flashcard-amount {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Button Styles with animation on hover */
+button {
+  background-color: #264fe2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Button Hover Effect */
+button:hover {
+  background-color: #3f68f0;
+  transform: scale(1.05);
+}
+
+/* Button Active Effect (for clicks) */
+button:active {
+  transform: scale(0.95);
+}
+
+/* File Upload Section Animation */
+.dashed_upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  opacity: 0;
+  animation: fadeInUpload 1.5s ease-in-out forwards;
+}
+
+/* Fade-in animation for the file upload section */
+@keyframes fadeInUpload {
+  to {
+      opacity: 1;
+  }
+}
+
+/* AI Explanation Text and Spinner */
+.ai-explanation {
+  display: none;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Spinner animation (for loading state) */
+.spinner-border {
+  width: 30px;
+  height: 30px;
+  border-width: 4px;
+  color: #264fe2;
+  animation: rotateSpinner 1s linear infinite;
+}
+
+@keyframes rotateSpinner {
+  100% {
+      transform: rotate(360deg);
+  }
+}
