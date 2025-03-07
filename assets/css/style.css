@@ -67,6 +67,21 @@ body {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.8), 0 0 30px rgba(216, 216, 216, 0.6), 0 0 40px rgba(131, 131, 131, 0.4);
 }
 
+.glowwwww {
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8), 0 0 4px rgba(216, 216, 216, 0.6), 0 0 3px rgba(131, 131, 131, 0.4);
+  transition: text-shadow 0.3s ease-in-out;
+  opacity: 0; /* Start with opacity 0 */
+  animation: fadeInTitle 1.5s ease-in-out forwards;
+}
+
+/* Title hover effect */
+.glowwwww:hover {
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.8), 0 0 3px rgba(216, 216, 216, 0.6), 0 0 4px rgba(131, 131, 131, 0.4);
+}
+
 /* Fade-in animation for title */
 @keyframes fadeInTitle {
   to {
