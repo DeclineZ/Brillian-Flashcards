@@ -19,7 +19,18 @@
     <nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav" style="background: rgb(45,44,56);">
       <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><span ><img src="assets/img/logo/logowideLW.png" style="height:50px;"></span><span></span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navcol-1">
-              <ul class="navbar-nav mx-auto"></ul><strong><p style="margin-bottom:0px; color:white; margin-right:10px" >Level 0</p></strong><a class="btn btn-primary shadow" role="button" href="" style="border-radius: 32px;">Sign up</a>
+              <ul class="navbar-nav mx-auto"></ul>
+              <div class="level-container" style="display:flex; flex-direction:column;">
+                <div class="level-info">
+                  <span>Level: 1</span>
+                </div>
+                <div class="level-bar">
+                  <div class="level-fill" id="levelFill"></div>
+                  <div class="level-text" id="levelText">0%</div>
+                </div>
+                
+              </div>
+              <a class="btn btn-primary shadow" role="button" href="" style="border-radius: 32px;">Sign up</a>
           </div>
       </div>
     </nav>
