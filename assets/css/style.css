@@ -188,7 +188,6 @@ button:active {
 .dragdrop {
   height: 250px;
   margin-bottom: 50px;
-  min-width: 431px;
 }
 
 @media (min-width: 768px) {
