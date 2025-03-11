@@ -142,7 +142,7 @@ h1 {
   
 
 .arrow-button {
-    height: 60px;
+    height: 40px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
